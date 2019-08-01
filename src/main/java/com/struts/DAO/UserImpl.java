@@ -66,11 +66,16 @@ public class UserImpl implements UserIn {
 	public boolean resetUser(User user) {
 		sessionFactory = HibernateUtil.getSession();
 		Session session = sessionFactory.openSession();
-		String sql = "from User u where u.password=:password";
+		Transaction transaction=session.beginTransaction();
+		String sql = "from User u where u.email=:email";
 		Query query = session.createQuery(sql);
-		query.setParameter("password", user.getPassword());
+		query.setParameter("email", user.getEmail());
 		User user1 = (User) query.uniqueResult();
-		System.out.println(user1);
+		System.out.println(user.getEmail());
+		user1.setPassword(user.getPassword());
+		session.save(user1);
+		transaction.commit();
+		//System.out.println(user1);
 		if (user1 != null) {
 			session.save(user1);
 			session.close();

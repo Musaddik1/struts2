@@ -1,16 +1,18 @@
 package com.struts.action;
 
+import java.util.Map;
+
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
-
+import org.apache.struts2.interceptor.SessionAware;
 
 import com.struts.DAO.UserImpl;
 import com.struts.model.User;
 
 @Namespace("/")
 @Action(value="register",results={@Result(name="success",location="/register-success.jsp")})
-public class RegisterAction {
+public class RegisterAction implements SessionAware {
 
 	private String name;
 	private String email;
@@ -18,12 +20,21 @@ public class RegisterAction {
 	private String phoneNumber;
 	
 
+	 private Map<String,Object> session;
+	 
+	    public void setSession(Map<String,Object> session){ 
+	        this.session = session;
+	    }
+
+	
 	public String execute()
 	{
 		System.out.println("regg");
 		User user=new User(name, email, password, phoneNumber);
 		UserImpl userImpl=new UserImpl();
 		userImpl.registerUser(user);
+		String email=(String) session.get("email");
+		System.out.println(email);
 		return "success";
 	}
 	public RegisterAction()

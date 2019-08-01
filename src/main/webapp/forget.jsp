@@ -11,7 +11,7 @@
 <body>
 
 	<s:form action="forget">
-	<p>${sessionScope.email}<p>
+	
 		<s:textfield name="email" label="Email"/>
 		<s:submit value="forget" />
 	</s:form>

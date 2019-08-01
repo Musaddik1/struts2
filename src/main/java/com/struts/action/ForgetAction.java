@@ -20,8 +20,12 @@ import com.struts.model.User;
 public class ForgetAction implements SessionAware {
 
 	private String email;
-	 private Map<String, Object> sessionMap;
 	
+	 private Map<String,Object> session;
+	    public void setSession(Map<String,Object> session){ 
+	        this.session = session;
+	    }
+
 	public ForgetAction()
 	{
 		
@@ -52,7 +56,7 @@ public class ForgetAction implements SessionAware {
 		if(userImpl.forgetUser(user))
 		{
 			
-			sessionMap.put("email", email);
+			session.put("email", email);
 			return "success";
 		}
 		else
@@ -61,9 +65,7 @@ public class ForgetAction implements SessionAware {
 		}
 	}
 
-	public void setSession(Map<String, Object> session) {
-		this.sessionMap=session;
-	}
+	
 
 	
 }

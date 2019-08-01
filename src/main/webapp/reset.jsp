@@ -8,10 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%
-String email=(String)session.getAttribute("email");
-out.print(email);
-%>
+
 	<s:form action="reset">
 		<s:textfield name="password" label="password"/>
 		<s:submit value="reset"/>
